@@ -214,12 +214,79 @@
             transform: scale(1.05);
         }
 
-        /* SECTION BAŞLIKLARI */
+        /* HERO BÖLÜMÜ */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), 
+                        url('https://fanzade.com/wp-content/uploads/2025/07/Chainsaw-man-anime-data-de-estreia-1.jpg') center/cover;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            position: relative;
+            transition: background 1.5s ease-in-out;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--accent);
+            transition: width 10s linear;
+            z-index: 10;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .hero-title {
+            font-size: 5.5rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+        }
+
+        .hero-desc {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 520px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            padding: 16px 48px;
+            border-radius: 999px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        }
+
+        /* SECTION BAŞLIKLARI ve CAROUSEL */
         .section-title {
             font-size: 1.9rem;
             font-weight: 600;
             color: var(--muted);
-            margin: 100px 0 36px 8%; /* nav bar'ın altına düşsün */
+            margin: 120px 0 36px 8%;
         }
 
         .carousel {
@@ -323,6 +390,16 @@
         </div>
     </nav>
 
+    <!-- HERO BÖLÜMÜ -->
+    <div class="hero">
+        <div class="progress-bar" id="progressBar"></div>
+        <div class="hero-content">
+            <h1 class="hero-title" id="heroTitle">Chainsaw Man</h1>
+            <p class="hero-desc" id="heroDesc">Denji, şeytanla birleşerek zincirli testere adamına dönüşür. Acımasız bir dünyada hayatta kalmak için şeytan avcılığına başlar; ancak bu yol onu hem dostluk hem de derin ihanetlerle karşı karşıya bırakır.</p>
+            <button class="btn btn-primary">HEMEN İZLE</button>
+        </div>
+    </div>
+
     <!-- TREND BÖLÜMÜ -->
     <section>
         <div class="section-title">TREND</div>
@@ -337,26 +414,10 @@
 
     <script>
         const animes = [
-            {id:0, title:"Jujutsu Kaisen", poster:"https://image.openanime.net/t/p/w500/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg"},
-            {id:1, title:"Chainsaw Man", poster:"https://static.wikia.nocookie.net/chainsaw-man/images/0/0f/Chainsaw_Man_Anime_Key_Visual_1.png/revision/latest?cb=20220729093209"},
-            {id:2, title:"Solo Leveling", poster:"https://images.justwatch.com/poster/310154566/s166/solo-leveling.avif"}
+            {id:0, title:"Jujutsu Kaisen", poster:"https://image.openanime.net/t/p/w500/fHpKWq9ayzSk8nSwqRuaAUemRKh.jpg", bigPoster:"https://i.pinimg.com/originals/3a/8d/2e/3a8d2e5b5f5c5d5e5f5c5d5e5f5c5d5e.jpg", desc:"Lise öğrencisi Yuji Itadori, lanetli bir nesneyi yutarak Sukuna'nın gücüne sahip olur..."},
+            {id:1, title:"Chainsaw Man", poster:"https://static.wikia.nocookie.net/chainsaw-man/images/0/0f/Chainsaw_Man_Anime_Key_Visual_1.png/revision/latest?cb=20220729093209", bigPoster:"https://fanzade.com/wp-content/uploads/2025/07/Chainsaw-man-anime-data-de-estreia-1.jpg", desc:"Denji, şeytanla birleşerek zincirli testere adamına dönüşür..."},
+            {id:2, title:"Solo Leveling", poster:"https://images.justwatch.com/poster/310154566/s166/solo-leveling.avif", bigPoster:"https://images6.alphacoders.com/137/thumb-1920-1372163.jpeg", desc:"Zayıf bir E-sınıfı avcı olan Sung Jin-Woo..."}
         ];
-
-        function createCarousel(id, list) {
-            const container = document.getElementById(id);
-            container.innerHTML = '';
-            list.forEach(anime => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <img src="${anime.poster}">
-                    <div class="card-info">
-                        <div class="card-title">${anime.title}</div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
 
         function animateLetters() {
             const letters = document.querySelectorAll('.letter');
@@ -380,6 +441,22 @@
             }, 100);
         }
 
+        function createCarousel(id, list) {
+            const container = document.getElementById(id);
+            container.innerHTML = '';
+            list.forEach(anime => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <img src="${anime.poster}">
+                    <div class="card-info">
+                        <div class="card-title">${anime.title}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
         function searchAnime(query) {
             const filtered = animes.filter(anime => 
                 anime.title.toLowerCase().includes(query.toLowerCase())
@@ -397,6 +474,28 @@
             }
         }
 
+        function changeHero() {
+            const randomAnime = animes[Math.floor(Math.random() * animes.length)];
+            
+            document.querySelector('.hero').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.85)), url('${randomAnime.bigPoster}')`;
+            document.getElementById('heroTitle').textContent = randomAnime.title;
+            document.getElementById('heroDesc').textContent = randomAnime.desc;
+
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.transition = 'none';
+            progressBar.style.width = '0%';
+            
+            setTimeout(() => {
+                progressBar.style.transition = 'width 10s linear';
+                progressBar.style.width = '100%';
+            }, 100);
+        }
+
+        function startHeroCycle() {
+            changeHero();
+            setInterval(changeHero, 10000);
+        }
+
         window.onload = () => {
             animateLetters();
 
@@ -412,7 +511,7 @@
                     intro.style.display = 'none';
                     document.getElementById('navbar').classList.add('visible');
                     document.getElementById('navLogo').classList.add('animate');
-                    // Carousel'ları başlangıçta doldur
+                    startHeroCycle();
                     createCarousel('trending', animes);
                     createCarousel('new', [...animes].reverse());
                 }, 300);
