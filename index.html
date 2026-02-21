@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlusOn</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0f;
+            --surface: #121218;
+            --text: #f0f0f5;
+            --muted: #8a8a9e;
+            --accent: #00c4ff;
+        }
+        
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { 
+            font-family: 'Inter', system-ui, sans-serif; 
+            background: var(--bg); 
+            color: var(--text); 
+            overflow-x: hidden;
+        }
+    </style>
+  /* NAV */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: 20px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    transition: all 0.4s ease;
+}
+        
+nav.scrolled {
+    background: rgba(10,10,15,0.96);
+    backdrop-filter: blur(40px);
+}
+        
+.nav-logo {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    color: white;
+}
+        
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 26px;
+}
+        
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+        
+.search {
+    background: rgba(255,255,255,0.1);
+    border-radius: 999px;
+    padding: 11px 26px;
+    width: 360px;
+}
+</head>
+<body>
+    <!-- İçerik buraya eklenecek -->
+    <script>
+        // JS buraya eklenecek
+    </script>
+  window.onload = () => {const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+});
+    setTimeout(() => {
+        const intro = document.getElementById('intro');
+        intro.style.transition = 'opacity 0.2s';
+        intro.style.opacity = '0';
+        
+        setTimeout(() => {
+            intro.style.display = 'none';
+        }, 250);
+    }, 3800);
+};
+</body>
+  <div id="intro">
+    <div class="intro-logo">PlusOn</div>
+    <div class="loading-spinner">+</div>
+</div>
+  <nav id="navbar">
+    <div class="nav-logo">PlusOn</div>
+    <div class="nav-links">
+        <a href="#">Ana Sayfa</a>
+        <a href="#">Popüler</a>
+        <a href="#">Yeni Sezon</a>
+        <a href="#">Türler</a>
+    </div>
+    <div class="nav-right">
+        <div class="search">
+            <i class="fas fa-search" style="color:#666"></i>
+            <input type="text" id="searchInput" placeholder="Ara...">
+        </div>
+        <button class="auth-btn" id="authButton">Giriş Yap</button>
+    </div>
+</nav>
+  /* AÇILIŞ */
+#intro {
+    position: fixed;
+    inset: 0;
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    transition: opacity 0.4s ease-out;
+}
+        
+.intro-logo {
+    font-size: 148px;
+    font-weight: 900;
+    letter-spacing: -12px;
+    color: white;
+    opacity: 0;
+    animation: textAppear 3.2s ease-in-out forwards;
+}
+        
+@keyframes textAppear {
+    0% { opacity: 0; transform: scale(0.8) translateY(40px); }
+    60% { opacity: 1; transform: scale(1.08) translateY(-8px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+        
+.loading-spinner {
+    font-size: 80px;
+    color: var(--accent);
+    margin-top: 20px;
+    animation: spin 2s linear infinite;
+}
+        
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</html>
