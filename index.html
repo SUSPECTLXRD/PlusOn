@@ -14,6 +14,13 @@
             --muted: #8a8a9e;
             --accent: #00c4ff;
         }
+        body.light-theme {
+    --bg: #f0f0f5;
+    --surface: #ffffff;
+    --text: #0a0a0f;
+    --muted: #6a6a7e;
+    --accent: #00a3d9;
+}
 
         * { margin:0; padding:0; box-sizing:border-box; }
 
@@ -213,6 +220,93 @@
             background: #00a3d9;
             transform: scale(1.05);
         }
+        /* Hamburger menü */
+.hamburger {
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.hamburger:hover {
+    color: var(--accent);
+}
+
+.menu-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 8%;
+    background: var(--surface);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    padding: 20px;
+    display: none;
+    z-index: 999;
+}
+
+.menu-dropdown.active {
+    display: block;
+}
+
+.menu-item {
+    margin-bottom: 20px;
+}
+
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggle-switch label {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ccc;
+    transition: .4s;
+    border-radius: 26px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background: var(--accent);
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+}
 
         /* HERO BÖLÜMÜ */
         .hero {
@@ -387,6 +481,22 @@
                 <input type="text" id="searchInput" placeholder="Anime ara...">
             </div>
             <button class="auth-btn" id="authButton">Giriş Yap</button>
+            <div class="hamburger" id="hamburger">
+    <i class="fas fa-bars"></i>
+</div>
+            <!-- MENÜ DROPDOWN -->
+<div class="menu-dropdown" id="menuDropdown">
+    <div class="menu-item">
+        <label for="themeToggle">Tema Değiştir</label>
+        <div class="toggle-switch">
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+    <!-- İleride buraya daha fazla menü item ekleyebiliriz -->
+</div>
         </div>
     </nav>
 
@@ -521,6 +631,20 @@
             window.addEventListener('scroll', () => {
                 navbar.classList.toggle('scrolled', window.scrollY > 100);
             });
+            // Hamburger menü aç/kapa
+const hamburger = document.getElementById('hamburger');
+const menuDropdown = document.getElementById('menuDropdown');
+
+hamburger.addEventListener('click', () => {
+    menuDropdown.classList.toggle('active');
+});
+
+// Tema değiştirme toggle
+const themeToggle = document.getElementById('themeToggle');
+themeToggle.addEventListener('change', () => {
+    document.body.classList.toggle('light-theme');
+    // İleride buraya daha fazla tema değişikliği ekleyebiliriz
+});
 
             const searchInput = document.getElementById('searchInput');
             searchInput.addEventListener('input', (e) => {
